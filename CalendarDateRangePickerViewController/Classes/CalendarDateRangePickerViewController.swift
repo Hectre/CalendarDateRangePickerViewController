@@ -47,15 +47,21 @@ public class CalendarDateRangePickerViewController: UICollectionViewController {
         collectionView?.contentInset = collectionViewInsets
         
         if minimumDate == nil {
-            minimumDate = Date()
+            minimumDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())
         }
         if maximumDate == nil {
-            maximumDate = Calendar.current.date(byAdding: .year, value: 3, to: minimumDate)
+            maximumDate = Calendar.current.date(byAdding: .year, value: 1, to: Date())
         }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(CalendarDateRangePickerViewController.didTapCancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(CalendarDateRangePickerViewController.didTapDone))
         self.navigationItem.rightBarButtonItem?.isEnabled = selectedStartDate != nil && selectedEndDate != nil
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 12), at: .centeredVertically, animated: true)
     }
     
     @objc func didTapCancel() {
