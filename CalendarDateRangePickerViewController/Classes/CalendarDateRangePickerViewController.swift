@@ -162,7 +162,7 @@ extension CalendarDateRangePickerViewController : UICollectionViewDelegateFlowLa
         if selectedStartDate == nil {
             selectedStartDate = cell.date
         } else if selectedEndDate == nil {
-            if isBefore(dateA: selectedStartDate!, dateB: cell.date!) {
+            if isBefore(dateA: selectedStartDate!, dateB: cell.date!) || areSameDay(dateA: selectedStartDate!, dateB: cell.date!) {
                 selectedEndDate = cell.date
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             } else {
